@@ -29,80 +29,86 @@
     </div>
 
         <!-- Day View -->
-        <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showDayView" v-bind:style="calendarStyle">
-          <div class="vdp-datepicker__calendar-fullwidth-wrapper">
-            <header>
-                <span
-                    @click="isRtl ? nextMonth() : previousMonth()"
-                    class="prev"
-                    v-bind:class="{ 'disabled' : isRtl ? nextMonthDisabled(pageTimestamp) : previousMonthDisabled(pageTimestamp) }">&lt;</span>
-                <span @click="showMonthCalendar" :class="!dayViewOnly ? 'up' : ''">{{ currMonthName }} {{ currYear }}
-                </span>
-                <span
-                    @click="isRtl ? previousMonth() : nextMonth()"
-                    class="next"
-                    v-bind:class="{ 'disabled' : isRtl ? previousMonthDisabled(pageTimestamp) : nextMonthDisabled(pageTimestamp) }">&gt;</span>
-            </header>
-            <div :class="isRtl ? 'flex-rtl' : ''">
-              <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
-              <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span><!--
-              --><span class="cell day"
-                  v-for="day in days"
-                  :key="day.timestamp"
-                  track-by="timestamp"
-                  v-bind:class="dayClasses(day)"
-                  @click="selectDate(day)">{{ day.date }}</span>
+        <transition name="slide-popup">
+          <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showDayView" v-bind:style="calendarStyle">
+            <div class="vdp-datepicker__calendar-fullwidth-wrapper">
+              <header>
+                  <span
+                      @click="isRtl ? nextMonth() : previousMonth()"
+                      class="prev"
+                      v-bind:class="{ 'disabled' : isRtl ? nextMonthDisabled(pageTimestamp) : previousMonthDisabled(pageTimestamp) }">&lt;</span>
+                  <span @click="showMonthCalendar" :class="!dayViewOnly ? 'up' : ''">{{ currMonthName }} {{ currYear }}
+                  </span>
+                  <span
+                      @click="isRtl ? previousMonth() : nextMonth()"
+                      class="next"
+                      v-bind:class="{ 'disabled' : isRtl ? previousMonthDisabled(pageTimestamp) : nextMonthDisabled(pageTimestamp) }">&gt;</span>
+              </header>
+              <div :class="isRtl ? 'flex-rtl' : ''">
+                <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
+                <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span><!--
+                --><span class="cell day"
+                    v-for="day in days"
+                    :key="day.timestamp"
+                    track-by="timestamp"
+                    v-bind:class="dayClasses(day)"
+                    @click="selectDate(day)">{{ day.date }}</span>
+              </div>
             </div>
           </div>
-        </div>
+        </transition>
 
         <!-- Month View -->
-        <template v-if="!dayViewOnly">
-          <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showMonthView" v-bind:style="calendarStyle">
-            <div class="vdp-datepicker__calendar-fullwidth-wrapper">
-              <header>
-                  <span
-                      @click="previousYear"
-                      class="prev"
-                      v-bind:class="{ 'disabled' : previousYearDisabled(pageTimestamp) }">&lt;</span>
-                  <span @click="showYearCalendar" class="up">{{ getPageYear() }}</span>
-                  <span
-                      @click="nextYear"
-                      class="next"
-                      v-bind:class="{ 'disabled' : nextYearDisabled(pageTimestamp) }">&gt;</span>
-              </header>
-              <span class="cell month"
-                  v-for="month in months"
-                  :key="month.timestamp"
-                  track-by="timestamp"
-                  v-bind:class="{ 'selected': month.isSelected, 'disabled': month.isDisabled }"
-                  @click.stop="selectMonth(month)">{{ month.month }}
-              </span>
+        <transition name="slide-popup">
+          <template v-if="!dayViewOnly">
+            <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showMonthView" v-bind:style="calendarStyle">
+              <div class="vdp-datepicker__calendar-fullwidth-wrapper">
+                <header>
+                    <span
+                        @click="previousYear"
+                        class="prev"
+                        v-bind:class="{ 'disabled' : previousYearDisabled(pageTimestamp) }">&lt;</span>
+                    <span @click="showYearCalendar" class="up">{{ getPageYear() }}</span>
+                    <span
+                        @click="nextYear"
+                        class="next"
+                        v-bind:class="{ 'disabled' : nextYearDisabled(pageTimestamp) }">&gt;</span>
+                </header>
+                <span class="cell month"
+                    v-for="month in months"
+                    :key="month.timestamp"
+                    track-by="timestamp"
+                    v-bind:class="{ 'selected': month.isSelected, 'disabled': month.isDisabled }"
+                    @click.stop="selectMonth(month)">{{ month.month }}
+                </span>
+              </div>
             </div>
-          </div>
-        </template>
+          </template>
+        </transition>
 
         <!-- Year View -->
-        <template v-if="!dayViewOnly">
-          <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showYearView" v-bind:style="calendarStyle">
-            <div class="vdp-datepicker__calendar-fullwidth-wrapper">
-              <header>
-                  <span @click="previousDecade" class="prev"
-                      v-bind:class="{ 'disabled' : previousDecadeDisabled(pageTimestamp) }">&lt;</span>
-                  <span>{{ getPageDecade() }}</span>
-                  <span @click="nextDecade" class="next"
-                      v-bind:class="{ 'disabled' : nextMonthDisabled(pageTimestamp) }">&gt;</span>
-              </header>
-              <span
-                  class="cell year"
-                  v-for="year in years"
-                  :key="year.timestamp"
-                  track-by="timestamp"
-                  v-bind:class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
-                  @click.stop="selectYear(year)">{{ year.year }}</span>
+        <transition name="slide-popup">
+          <template v-if="!dayViewOnly">
+            <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showYearView" v-bind:style="calendarStyle">
+              <div class="vdp-datepicker__calendar-fullwidth-wrapper">
+                <header>
+                    <span @click="previousDecade" class="prev"
+                        v-bind:class="{ 'disabled' : previousDecadeDisabled(pageTimestamp) }">&lt;</span>
+                    <span>{{ getPageDecade() }}</span>
+                    <span @click="nextDecade" class="next"
+                        v-bind:class="{ 'disabled' : nextMonthDisabled(pageTimestamp) }">&gt;</span>
+                </header>
+                <span
+                    class="cell year"
+                    v-for="year in years"
+                    :key="year.timestamp"
+                    track-by="timestamp"
+                    v-bind:class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
+                    @click.stop="selectYear(year)">{{ year.year }}</span>
+              </div>
             </div>
-          </div>
-        </template>
+          </template>
+        </transition>
   </div>
 </template>
 
@@ -799,6 +805,12 @@ export default {
 <style lang="stylus">
 
 $width = 300px
+
+.slide-popup-enter-active, .slide-popup-leave-active
+    transition all 0.5s ease
+
+.slide-popup-enter, .slide-popup-leave-to
+    transform translate3d( 100%, 0, 0 )
 
 .rtl
     direction:rtl
