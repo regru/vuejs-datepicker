@@ -32,6 +32,12 @@
         <transition name="slide-popup">
           <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showDayView" v-bind:style="calendarStyle">
             <div class="vdp-datepicker__calendar-fullwidth-wrapper">
+              <div class="vdp-datepicker__header" @click="close()">
+                  <div class="vdp-datepicker__close"></div>
+                  <div class="vdp-datepicker__title">
+                      {{ title }}
+                  </div>
+              </div>
               <header>
                   <span
                       @click="isRtl ? nextMonth() : previousMonth()"
@@ -63,6 +69,12 @@
           <template v-if="!dayViewOnly">
             <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showMonthView" v-bind:style="calendarStyle">
               <div class="vdp-datepicker__calendar-fullwidth-wrapper">
+                <div class="vdp-datepicker__header" @click="close()">
+                    <div class="vdp-datepicker__close"></div>
+                    <div class="vdp-datepicker__title">
+                        {{ title }}
+                    </div>
+                </div>
                 <header>
                     <span
                         @click="previousYear"
@@ -91,6 +103,12 @@
           <template v-if="!dayViewOnly">
             <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showYearView" v-bind:style="calendarStyle">
               <div class="vdp-datepicker__calendar-fullwidth-wrapper">
+                <div class="vdp-datepicker__header" @click="close()">
+                    <div class="vdp-datepicker__close"></div>
+                    <div class="vdp-datepicker__title">
+                        {{ title }}
+                    </div>
+                </div>
                 <header>
                     <span @click="previousDecade" class="prev"
                         v-bind:class="{ 'disabled' : previousDecadeDisabled(pageTimestamp) }">&lt;</span>
@@ -156,7 +174,8 @@ export default {
     },
     disabledPicker: Boolean,
     required: Boolean,
-    dayViewOnly: Boolean
+    dayViewOnly: Boolean,
+    title: String
   },
   data () {
     return {
@@ -821,7 +840,7 @@ $width = 300px
     *
         box-sizing border-box
     input[type=text]
-        max-width 120px
+        max-width 145px
         padding 0
         border none
         font 15px/24px Arial
@@ -956,4 +975,26 @@ $width = 300px
     &.disabled
       color #999
       cursor default
+
+.vdp-datepicker__header
+    display flex
+    flex-direction row
+    align-items center
+    padding 36px
+    cursor pointer
+
+.vdp-datepicker__close
+    display block
+    width 24px
+    height 24px
+    margin-right 12px
+    background-image url('close.svg')
+    background-size cover
+    background-repeat no-repeat
+    cursor pointer
+
+.vdp-datepicker__title
+    color #7e7e7e
+    font 15px/24px Arial
+
 </style>
