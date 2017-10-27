@@ -794,6 +794,7 @@ $width = 300px
     direction:rtl
 .vdp-datepicker
     position relative
+    padding 0 6px
     text-align left
     *
         box-sizing border-box
