@@ -572,7 +572,7 @@ describe('Datepicker highlight date', () => {
 describe('Datepicker with monday as first day of week', () => {
   beforeEach(() => {
     vm = getViewModel(Datepicker, {
-      mondayFirst: true
+      language: 'en'
     })
   })
 

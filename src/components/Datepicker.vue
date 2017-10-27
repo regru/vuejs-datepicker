@@ -30,6 +30,7 @@
 
         <!-- Day View -->
         <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showDayView" v-bind:style="calendarStyle">
+          <div class="vdp-datepicker__calendar-fullwidth-wrapper">
             <header>
                 <span
                     @click="isRtl ? nextMonth() : previousMonth()"
@@ -52,11 +53,13 @@
                   v-bind:class="dayClasses(day)"
                   @click="selectDate(day)">{{ day.date }}</span>
             </div>
+          </div>
         </div>
 
         <!-- Month View -->
         <template v-if="!dayViewOnly">
           <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showMonthView" v-bind:style="calendarStyle">
+            <div class="vdp-datepicker__calendar-fullwidth-wrapper">
               <header>
                   <span
                       @click="previousYear"
@@ -73,13 +76,16 @@
                   :key="month.timestamp"
                   track-by="timestamp"
                   v-bind:class="{ 'selected': month.isSelected, 'disabled': month.isDisabled }"
-                  @click.stop="selectMonth(month)">{{ month.month }}</span>
+                  @click.stop="selectMonth(month)">{{ month.month }}
+              </span>
+            </div>
           </div>
         </template>
 
         <!-- Year View -->
         <template v-if="!dayViewOnly">
           <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showYearView" v-bind:style="calendarStyle">
+            <div class="vdp-datepicker__calendar-fullwidth-wrapper">
               <header>
                   <span @click="previousDecade" class="prev"
                       v-bind:class="{ 'disabled' : previousDecadeDisabled(pageTimestamp) }">&lt;</span>
@@ -94,6 +100,7 @@
                   track-by="timestamp"
                   v-bind:class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
                   @click.stop="selectYear(year)">{{ year.year }}</span>
+            </div>
           </div>
         </template>
   </div>
@@ -114,11 +121,11 @@ export default {
     id: String,
     format: {
       type: [String, Function],
-      default: 'dd MMM yyyy'
+      default: 'dd MMMM yyyy'
     },
     language: {
       type: String,
-      default: 'en'
+      default: 'ru'
     },
     fullMonthName: Boolean,
     disabled: Object,
@@ -128,7 +135,10 @@ export default {
     calendarClass: [String, Object],
     inputClass: [String, Object],
     wrapperClass: [String, Object],
-    mondayFirst: Boolean,
+    mondayFirst: {
+      type: Boolean,
+      default: true
+    },
     clearButton: Boolean,
     clearButtonIcon: String,
     calendarButton: Boolean,
@@ -799,22 +809,31 @@ $width = 300px
     *
         box-sizing border-box
     input[type=text]
-        max-width: 120px;
-        padding: 0;
-        border: none;
-        font: 15px/24px Arial;
-        background-color: #f3f3f3;
-        background-image: url('datepicker.svg');
-        background-position: right center;
-        background-repeat: no-repeat;
-        cursor: pointer;
+        max-width 120px
+        padding 0
+        border none
+        font 15px/24px Arial
+        background-color #f3f3f3
+        background-image url('datepicker.svg')
+        background-position right center
+        background-repeat no-repeat
+        cursor pointer
 
 .vdp-datepicker__calendar
-    position absolute
+    display block
+    position fixed
+    top 0
+    bottom 0
+    left 0
     z-index 100
-    background white
-    width $width
-    border 1px solid #ccc
+    overflow-x hidden
+    overflow-y scroll
+    padding 0
+    box-shadow 1px 2px 7px rgba(0,0,0,.24)
+    background #fff
+    @media (min-width: 767px)
+        right 0
+        left auto
     header
         display block
         line-height 40px
@@ -906,6 +925,17 @@ $width = 300px
     .month,
     .year
         width 33.333%
+
+.vdp-datepicker__calendar-fullwidth-wrapper
+    position relative
+    top 0
+    width 100vw
+    max-width 100vw
+    height 100%
+    padding 0
+    @media (min-width: 767px)
+        width auto
+        max-width 600px
 
 .vdp-datepicker__clear-button
 .vdp-datepicker__calendar-button
