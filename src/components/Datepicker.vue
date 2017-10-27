@@ -798,6 +798,16 @@ $width = 300px
     text-align left
     *
         box-sizing border-box
+    input[type=text]
+        max-width: 120px;
+        padding: 0;
+        border: none;
+        font: 15px/24px Arial;
+        background-color: #f3f3f3;
+        background-image: url('datepicker.svg');
+        background-position: right center;
+        background-repeat: no-repeat;
+        cursor: pointer;
 
 .vdp-datepicker__calendar
     position absolute
