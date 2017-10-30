@@ -840,7 +840,6 @@ $width = 300px
     *
         box-sizing border-box
     input[type=text]
-        max-width 145px
         padding 0
         border none
         font 15px/24px Arial
@@ -930,14 +929,16 @@ $width = 300px
         &:not(.blank):not(.disabled).year
             cursor pointer
             &:hover
-                border 1px solid #4bd
+                border 3px solid #06c98c
         &.selected
-            background #4bd
+            background #06c98c
             &:hover
-                background #4bd
+                background #06c98c
             &.highlighted
-                background #4bd
+                background #06c98c
         &.highlighted
+            background #cae5ed
+        &.today
             background #cae5ed
         &.grey
             color #888
