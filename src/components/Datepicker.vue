@@ -825,6 +825,7 @@ export default {
 
 $width = 300px
 
+
 .slide-popup-enter-active, .slide-popup-leave-active
     transition all 0.5s ease
 
@@ -923,7 +924,7 @@ $width = 300px
         line-height 40px
         text-align center
         vertical-align middle
-        border 1px solid transparent
+        border 3px solid transparent
         &:not(.blank):not(.disabled).day
         &:not(.blank):not(.disabled).month
         &:not(.blank):not(.disabled).year
