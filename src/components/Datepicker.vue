@@ -50,8 +50,10 @@
                       class="next"
                       v-bind:class="{ 'disabled' : isRtl ? previousMonthDisabled(pageTimestamp) : nextMonthDisabled(pageTimestamp) }">&gt;</span>
               </header>
-              <div :class="isRtl ? 'flex-rtl' : ''">
-                <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
+              <div :class="isRtl ? 'flex-rtl vdp-datepicker__calendar-dates' : 'vdp-datepicker__calendar-dates'">
+                  <div class="vdp-datepicker__calendar-week">
+                      <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
+                  </div>
                 <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span><!--
                 --><span class="cell day"
                     v-for="day in days"
@@ -86,13 +88,15 @@
                         class="next"
                         v-bind:class="{ 'disabled' : nextYearDisabled(pageTimestamp) }">&gt;</span>
                 </header>
-                <span class="cell month"
-                    v-for="month in months"
-                    :key="month.timestamp"
-                    track-by="timestamp"
-                    v-bind:class="{ 'selected': month.isSelected, 'disabled': month.isDisabled }"
-                    @click.stop="selectMonth(month)">{{ month.month }}
-                </span>
+                <div class="vdp-datepicker__calendar-dates">
+                    <span class="cell month"
+                        v-for="month in months"
+                        :key="month.timestamp"
+                        track-by="timestamp"
+                        v-bind:class="{ 'selected': month.isSelected, 'disabled': month.isDisabled }"
+                        @click.stop="selectMonth(month)">{{ month.month }}
+                    </span>
+                </div>
               </div>
             </div>
           </template>
@@ -116,13 +120,15 @@
                     <span @click="nextDecade" class="next"
                         v-bind:class="{ 'disabled' : nextMonthDisabled(pageTimestamp) }">&gt;</span>
                 </header>
-                <span
-                    class="cell year"
-                    v-for="year in years"
-                    :key="year.timestamp"
-                    track-by="timestamp"
-                    v-bind:class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
-                    @click.stop="selectYear(year)">{{ year.year }}</span>
+                <div class="vdp-datepicker__calendar-dates">
+                    <span
+                        class="cell year"
+                        v-for="year in years"
+                        :key="year.timestamp"
+                        track-by="timestamp"
+                        v-bind:class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
+                        @click.stop="selectYear(year)">{{ year.year }}</span>
+                </div>
               </div>
             </div>
           </template>
@@ -867,6 +873,7 @@ $width = 300px
         left auto
     header
         display block
+        overflow hidden
         line-height 40px
         span
             display inline-block
@@ -921,7 +928,7 @@ $width = 300px
         padding 0 5px
         width (100/7)%
         height 40px
-        line-height 40px
+        line-height 36px
         text-align center
         vertical-align middle
         border 3px solid transparent
@@ -932,11 +939,11 @@ $width = 300px
             &:hover
                 border 3px solid #06c98c
         &.selected
-            background #06c98c
+            border 3px solid #06c98c
             &:hover
-                background #06c98c
+                border 3px solid #06c98c
             &.highlighted
-                background #06c98c
+                border 3px solid #06c98c
         &.highlighted
             background #cae5ed
         &.today
@@ -998,5 +1005,12 @@ $width = 300px
 .vdp-datepicker__title
     color #7e7e7e
     font 15px/24px Arial
+
+.vdp-datepicker__calendar-dates
+    padding 0 36px
+
+.vdp-datepicker__calendar-week
+    border-top 1px solid #e7e7e7
+    border-bottom 1px solid #e7e7e7
 
 </style>
