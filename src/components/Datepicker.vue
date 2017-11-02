@@ -151,13 +151,16 @@ export default {
     id: String,
     format: {
       type: [String, Function],
-      default: 'dd MMMM yyyy'
+      default: 'dd.MM.yyyy'
     },
     language: {
       type: String,
       default: 'ru'
     },
-    fullMonthName: Boolean,
+    fullMonthName: {
+      type: Boolean,
+      default: true
+    },
     disabled: Object,
     highlighted: Object,
     placeholder: String,
@@ -473,7 +476,7 @@ export default {
      */
     getPageDecade () {
       let sD = Math.floor(this.pageDate.getFullYear() / 10) * 10
-      return sD + '\'s'
+      return sD + '-ые'
     },
     changeMonth (incrementBy) {
       let date = this.pageDate
@@ -874,12 +877,14 @@ $width = 300px
     header
         display block
         overflow hidden
+        padding 0 36px
         line-height 40px
         span
             display inline-block
             text-align center
             width (100 - (100/7)*2)%
             float left
+            border-bottom 1px solid #e7e7e7
 
         .prev
         .next
@@ -939,6 +944,7 @@ $width = 300px
             &:hover
                 border 3px solid #06c98c
         &.selected
+            background-color #f2fcf9
             border 3px solid #06c98c
             &:hover
                 border 3px solid #06c98c
@@ -1010,7 +1016,6 @@ $width = 300px
     padding 0 36px
 
 .vdp-datepicker__calendar-week
-    border-top 1px solid #e7e7e7
     border-bottom 1px solid #e7e7e7
 
 </style>
