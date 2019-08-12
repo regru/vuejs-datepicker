@@ -853,11 +853,15 @@ $width = 300px
         padding 0
         border none
         font 15px/24px Arial
-        background-color #f3f3f3
+        background-color transparent
+        color #364364
         background-image url('datepicker.svg')
         background-position right center
         background-repeat no-repeat
         cursor pointer
+
+        &:placeholder
+          color #6a7287
 
 .vdp-datepicker__calendar
     display block
