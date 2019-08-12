@@ -860,8 +860,8 @@ $width = 300px
         background-repeat no-repeat
         cursor pointer
 
-        &:placeholder
-          color #6a7287
+        &::placeholder
+            color #6a7287
 
 .vdp-datepicker__calendar
     display block
